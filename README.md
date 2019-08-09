@@ -28,7 +28,7 @@ z.global`
 
 ## Helpers
 
-### padding / margin
+### `padding` / `margin`
 
 Tailwind CSS provides utilities to set padding/margin in increments of `0.25rem`.
 
@@ -52,11 +52,11 @@ z`
 `
 ```
 
-### font / font-size
+### `text size` / `font-family`
 
 Zaftig Tailwind provides 3 basic `font-family` helpers, `font-sans`, `font-serif` and `font-mono`. Use to apply good looking web-safe fonts of the particular type.
 
-The `text` helper provides a series of preset `font-size`s based on what [Tailwind CSS provides](). It accepts a single argument specifying the size which can be: xs ,sm, base, lg, xl, 2xl, 3xl, 4xl, 5xl, or 6xl.
+The `text` helper provides a series of preset `font-size`s based on what [Tailwind CSS provides](). It accepts a single argument specifying the size which can be: `xs`, `sm`, `base`, `lg`, `xl`, `2xl`, `3xl`, `4xl`, `5xl`, or `6xl`.
 
 ```js
 z`
@@ -65,12 +65,81 @@ z`
 `
 ```
 
-### border-radius / box-shadow
+### `shadow`
 
+Applies a given intensity/type of box-shadow. This helper takes one param which is one of the following values: `base`, `md`, `lg`, `xl`, `2xl`, `inner`, `outline`, `none`.
 
+```js
+z`shadow lg`
+// box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+```
 
-### Misc
+### `rounded`
+
+This helper doesn't take params and simply applies `0.25rem` of border-radius.
+
+```js
+z`rounded`
+// border-radius: 0.25rem;
+```
+
+### `size`
+
+This helper takes 2 params, `width` and `height` in `px` if not specified. If only 1 param is provided the same value will be used for both `width` and `height`.
+
+```js
+z`
+  size 40
+  size 100 200
+  size 20rem
+`
+```
 
 ## Colors
 
+Tailwind's whole palette of colors are provided as css variables. Since they're variables they can easily be used with any CSS property.
+
+[See here for the full list of available colors](https://tailwindcss.com/docs/customizing-colors#default-color-palette).
+
+The color variables are not loaded by default, allowing you to import them and load them at whatever scope you like.
+
+```js
+import { colors } from 'zaftig-tailwind'
+
+// load the colors into the global scope
+z.global(colors)
+
+// use them in a style
+z`
+  color $blue-2
+  background-color $green-5
+  border 1 solid $red-5
+`
+```
+
+Since the colors are just css variables you can easily redefine them as follows:
+
+```js
+import { colors } from 'zaftig-tailwind'
+
+// load colors into global scope and redefine blue-2
+z.global`
+  ${colors}
+  
+  $blue-2 #4299E1
+`
+```
+
 ## Customization
+
+The defaults provided by this library can easily be changed if so desired. Several of the value maps are exported by the library and can simply be mutated.
+
+```js
+import { breakpoints, shadowMap, textSizes } from 'zaftig-tailwind'
+
+breakpoints.md = '900px'
+shadowMap.outline = '0 0 0 10px rgba(66, 153, 225, 0.5)'
+textSizes.lg = '1.5rem'
+```
+
+The properties of the object matchup to the possible values of the relevant helpers.
