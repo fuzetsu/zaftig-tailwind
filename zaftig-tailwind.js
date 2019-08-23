@@ -61,6 +61,6 @@ export const helpers = {
   shadow: size => 'box-shadow ' + (shadowMap[size] || shadowMap.base),
   size: (x, y = x) => `width ${x}; height ${y}`,
   'flex-center': 'd flex;jc center;ai center',
-  '@resp': (type, dir) => `@media (${dirMap[dir || 'min']}-width: ${breakpoints[type]})`,
+  '@resp': (type, dir = 'up') => `@media (${dirMap[dir]}-width: ${breakpoints[type]})`,
   '@between': (a, b) => `@media (min-width: ${breakpoints[a]}) and (max-width: ${breakpoints[b]})`
 }
