@@ -38,9 +38,9 @@ const dirMap = {
   down: 'max'
 }
 
-const calcRem = x => x * 0.25 + 'rem'
-const makeRemHelper = prefix => (x, dirs) => {
-  const rem = isNaN(x) ? x : calcRem(x)
+const calcRem = (x, type = 'rem') => x * 0.25 + type
+const makeRemHelper = prefix => (x, dirs, type = 'rem') => {
+  const rem = isNaN(x) ? x : calcRem(x, type)
   return dirs
     ? dirs
         .split('')
