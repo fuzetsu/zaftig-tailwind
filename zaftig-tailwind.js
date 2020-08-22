@@ -15,12 +15,17 @@ export const textSizes = {
   '6xl': '4rem'
 }
 
+// define from biggest to smallest (for now)
 export const breakpoints = {
-  sm: '576px',
-  md: '768px',
+  uw: '3440px',
+  xl: '1200px',
   lg: '992px',
-  xl: '1200px'
+  md: '768px',
+  sm: '576px'
 }
+
+export const isBreakpoint = name => window.innerWidth >= parseInt(breakpoints[name], 10)
+export const getCurrentBreakpoint = () => Object.keys(breakpoints).find(isBreakpoint)
 
 const shadowMap = {
   base: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
@@ -59,8 +64,11 @@ export const helpers = {
   rounded: 'br .25rem',
   text: key => 'font-size ' + (textSizes[key] || textSizes.base),
   shadow: size => 'box-shadow ' + (shadowMap[size] || shadowMap.base),
-  size: (x, y = x) => `width ${x}; height ${y}`,
+  size: (x, y = x) => `width ${calcRem(x)}; height ${calcRem(y)}`,
   'flex-center': 'd flex;jc center;ai center',
   '@resp': (type, dir = 'up') => `@media (${dirMap[dir]}-width: ${breakpoints[type]})`,
-  '@between': (a, b) => `@media (min-width: ${breakpoints[a]}) and (max-width: ${breakpoints[b]})`
+  '@between': (a, b) => `@media (min-width: ${breakpoints[a]}) and (max-width: ${breakpoints[b]})`,
+  'limit-lines': x =>
+    `display -webkit-box;-webkit-box-orient vertical;-webkit-line-clamp ${x};overflow hidden`,
+  anim: 'transition'
 }
